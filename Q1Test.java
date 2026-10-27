@@ -81,7 +81,6 @@ public class Q1Test {
                 int in = (pre + 1 + attempt) % 3;
                 int post = (pre + 2 - attempt) % 3;
 
-                // Inorder must be strictly increasing for a BST.
                 if (!isSorted(arrays[in])) {
                     continue;
                 }
@@ -92,17 +91,14 @@ public class Q1Test {
                     orders[in] = "Inorder";
                     orders[post] = "Postorder";
 
-                    return (
-                        "Traversal 1 - " + orders[0] +
-                        ", Traversal 2 - " + orders[1] +
-                        ", Traversal 3 - " + orders[2]
-                    );
-                    return;
+                    return "Traversal 1 - " + orders[0]
+                         + ", Traversal 2 - " + orders[1]
+                         + ", Traversal 3 - " + orders[2];
                 }
             }
         }
 
-        System.out.println("Invalid traversals");
+        return "Invalid traversals";
     }
 
     private static boolean sameTree(
@@ -114,7 +110,6 @@ public class Q1Test {
             return false;
         }
 
-        // Three empty traversals describe the same empty subtree.
         if (n == 0) {
             return true;
         }
@@ -140,7 +135,6 @@ public class Q1Test {
 
         int leftSize = rootIndex;
 
-        // copyOfRange includes the start index, excludes the end index.
         int[] preLeft = java.util.Arrays.copyOfRange(
             preorder, 1, 1 + leftSize
         );
