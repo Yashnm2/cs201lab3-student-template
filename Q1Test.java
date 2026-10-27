@@ -125,7 +125,7 @@ public class Q1Test {
                     String[] orders = new String[3];
                     orders[pre] = "Preorder";
                     orders[in] = "Inorder";
-                    orders[post] = "Postorder" 
+                    orders[post] = "Postorder";
 
                     for (int i = 0; i < 3; i++) {
                         System.out.println(
