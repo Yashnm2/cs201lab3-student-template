@@ -137,6 +137,6 @@ public class Q1Test {
             }
         }
 
-        System.out.println("Invalid traversals";
+        System.out.println("Invalid traversals");
     }
 }
