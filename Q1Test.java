@@ -63,20 +63,7 @@ public class Q1Test {
      } 
 
       // write your codes here
-     public static void verify(String t1, String t2, String t3) {
-        String[] inputs = {t1, t2, t3};
-        int[][] arrays = new int[3][];
-
-        for (int i = 0; i < 3; i++) {
-            String[] parts = inputs[i].split("-");
-            arrays[i] = new int[parts.length];
-
-            for (int j = 0; j < parts.length; j++) {
-                arrays[i][j] = Integer.parseInt(parts[j]);
-            }
-        }
-
-        for (int pre = 0; pre < 3; pre++) {
+     for (int pre = 0; pre < 3; pre++) {
             for (int attempt = 0; attempt < 2; attempt++) {
                 int in = (pre + 1 + attempt) % 3;
                 int post = (pre + 2 - attempt) % 3;
@@ -85,58 +72,57 @@ public class Q1Test {
                 int[] inorder = arrays[in];
                 int[] postorder = arrays[post];
 
-                int root = preorder[0];
-                int rootIndex = find(inorder, root);
+                System.out.println(
+                    "\nAssume t" + (pre + 1) + " is preorder, t" +
+                    (in + 1) + " is inorder, t" +
+                    (post + 1) + " is postorder"
+                );
 
-                if (rootIndex == -1) {
+                int root = preorder[0];
+                int rootIndex = -1;
+
+                for (int i = 0; i < inorder.length; i++) {
+                    if (inorder[i] == root) {
+                        rootIndex = i;
+                        break;
+                    }
+                }
+
+                // These conditions prevent impossible array slices.
+                if (rootIndex == -1 ||
+                    preorder.length != inorder.length ||
+                    postorder.length != inorder.length) {
+                    System.out.println("Cannot split this combination.");
                     continue;
                 }
 
-                boolean valid = true;
+                int leftSize = rootIndex;
+                int n = preorder.length;
 
-                for (int i = 0; i < preorder.length; i++) {
-                    int parentIndex = find(inorder, preorder[i]);
+                System.out.println("Root: " + root);
 
-                    int left = 2 * i + 1;
-                    int right = 2 * i + 2;
+                printSplit(
+                    "Preorder",
+                    Arrays.copyOfRange(preorder, 1, 1 + leftSize),
+                    Arrays.copyOfRange(preorder, 1 + leftSize, n)
+                );
 
-                    if (left < preorder.length) {
-                        int leftIndex = find(inorder, preorder[left]);
+                printSplit(
+                    "Inorder",
+                    Arrays.copyOfRange(inorder, 0, rootIndex),
+                    Arrays.copyOfRange(inorder, rootIndex + 1, n)
+                );
 
-                        if (leftIndex >= parentIndex) {
-                            valid = false;
-                        }
-                    }
+                printSplit(
+                    "Postorder",
+                    Arrays.copyOfRange(postorder, 0, leftSize),
+                    Arrays.copyOfRange(postorder, leftSize, n - 1)
+                );
 
-                    if (right < preorder.length) {
-                        int rightIndex = find(inorder, preorder[right]);
-
-                        if (rightIndex <= parentIndex) {
-                            valid = false;
-                        }
-                    }
-                }
-
-                if (postorder[postorder.length - 1] != root) {
-                    valid = false;
-                }
-
-                if (valid) {
-                    String[] orders = new String[3];
-                    orders[pre] = "Preorder";
-                    orders[in] = "Inorder";
-                    orders[post] = "Postorder";
-
-                    for (int i = 0; i < 3; i++) {
-                        System.out.println(
-                            "Traversal " + (i + 1) + " - " + orders[i]
-                        );
-                    }
-                    return;
-                }
+                System.out.println(
+                    "Postorder's assumed root: " + postorder[n - 1]
+                );
             }
         }
-
-        System.out.println("Invalid traversals");
     }
 }
