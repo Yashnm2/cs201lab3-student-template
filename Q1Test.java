@@ -63,6 +63,7 @@ public class Q1Test {
      } 
 
       // write your codes here
+     //to run the autograde actino
      public static String verify(String t1, String t2, String t3) {
         String[] inputs = {t1, t2, t3};
         int[][] arrays = new int[3][];
