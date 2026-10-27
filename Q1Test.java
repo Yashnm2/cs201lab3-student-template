@@ -63,7 +63,7 @@ public class Q1Test {
      } 
 
       // write your codes here
-     public static void verify(String t1, String t2, String t3) {
+     public static String verify(String t1, String t2, String t3) {
         String[] inputs = {t1, t2, t3};
         int[][] arrays = new int[3][];
 
@@ -92,7 +92,7 @@ public class Q1Test {
                     orders[in] = "Inorder";
                     orders[post] = "Postorder";
 
-                    System.out.println(
+                    return (
                         "Traversal 1 - " + orders[0] +
                         ", Traversal 2 - " + orders[1] +
                         ", Traversal 3 - " + orders[2]
